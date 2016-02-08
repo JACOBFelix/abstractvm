@@ -1,0 +1,89 @@
+.\" Manpage for avm.
+.\" Contact brogg_t@epitech.eu and jacob_f@epitech.eu .in to correct errors or typos.
+.TH man 1 " 2015" "1.0" "AbstractVM man page"
+.SH NAME
+\fBAbstractVM\fR \- Emulate a basic Virtual Machine with somes basic instructions.
+.SH SYNOPSIS
+\fB./avm\fR [\fIfile_name\fR]
+.SH DESCRIPTION
+.PP
+\fBAbstractVM\fR is a programm that emulate a basic statement of a virtual machine. It can be used to make simple operations like \fBaddition\fR, \fBsubstraction\fR, \fBmultiplication\fR, \fBdivide\fR or \fBmodulo\fR. In case you specify two variables with different types, the result will use the most precise type. The precision follows this rule:
+.br
+\fBint8\fR < \fBint16\fR < \fBint32\fR < \fBfloat\fR < \fBdouble\fR
+.PP
+If compiled with \fBbonus\fR option, some instructions will be added.
+.PP
+The caracter for activing that text is a commentary is ;
+.PP
+If no argument is given, the virtual machine will read on the standard input, until a line \fB;;\fR is found. In this case, the \fBEOF\fR character \fB^D\fR will be ignored.
+.SH INSTRUCTIONS
+.TP
+\fBpush\fR \fItype\fR(\fIvalue\fI)
+Push a variable on the top of stack by specifying his \fItype\fR and his \fIvalue\fR.
+.br
+The \fItype\fR must be defined : \fBint8\fR, \fBint16\fR, \fBint32\fR, \fBfloat\fR and \fBdouble\fR are accepted. \fBauto\fR can be used if compile with \fRbonus\fR option, it will deduce the type automatically.
+.br
+The \fIvalue\fR must be defined around paranteses. There are differents value format depending on the type. See the examples below.
+.TP
+\fBpop\fR
+Pop the variable which is on the top of the stack.
+.TP
+\fBdump\fR
+Print the \fIvalues\fR of each elements in the stack.
+.br
+If compiled with \fBbonus\fR option, the \fItype\fR will also be printed and the output will be colored.
+.TP
+\fBassert\fR \fItype\fR(\fIvalue\fI)
+Check the \fItype\fR and the \fIvalue\fR of the variable on the top of the stack. If they are different, the virtual machine will stop.
+.br
+If compiled with \fBbonus\fR option, you can just check the value by using the type \fBauto\fR.
+.TP
+\fBadd\fR
+Pop the two last variables of the stack and add them in a third variable which will be pushed in the stack.
+.TP
+\fBsub\fR
+Pop the two last variables of the stack and do the substraction from the old second last on the old last and push the result in the top of the stack.
+.TP
+\fBmul\fR
+Pop the two last variable of the stack and multiplicate them in a third variable which will be pushed in the stack.
+.TP
+\fBdiv\fR
+Pop the two last variable of the stack and do the division from the old second last on the old last and push the result in the top of the stack.
+.TP
+\fBmod\fR
+Pop the two last variable of the stack and do the modulo from the old second last on the old last and push the result in the top of the stack. Note that this operation will result as an error if the divisor in a \fBdouble\fR of a \fBfloat\fR.
+.TP
+\fBprint\fR
+Print the character that correspond to the ascii value of the variable in top of the stack if the variable is a \fBint8\fR. If it is not, the virtual machine will exit.
+.TP
+\fBexit\fR
+Stop the execution of the virtual machine.
+.SH EXAMPLES
+.PP
+This is a simple example file :
+.PP
+push int8(42)
+.br
+push double(13.37) ; if value is not decimal, an error will occur
+.br
+add
+.br
+dump ;; it will display "55.37"
+.br
+push int8(42)
+.br
+print ;; it will print a star '*' char
+.br
+pop
+.br
+assert double(55.37)
+.br
+pop
+.br
+exit
+.SH REPORTING BUGS
+No known bugs.
+.br
+Report ./avm bugs to jacob_f@epitech.eu
+.SH AUTHOR
+jacob_f
